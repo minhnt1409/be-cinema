@@ -1,7 +1,5 @@
 import User from '../models/user.model.js'
-import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
-import nodemailer from 'nodemailer'
 import cloudinary from "../config/cloudinaryConfig.js"
 import generateToken from "../helpers/generateToken.js";
 
@@ -55,33 +53,6 @@ const login = (req, res) => {
   });
 };
 
-// Quên mật khẩu
-const forgotPassword = async (req, res) => {
-  const { email } = req.body;
-  const token = jwt.sign({ email }, 'secret', { expiresIn: '1h' });
-
-  // Gửi email
-  const transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    auth: {
-      user: 'your-email@gmail.com',
-      pass: 'your-password'
-    }
-  });
-
-  const mailOptions = {
-    from: 'your-email@gmail.com',
-    to: email,
-    subject: 'Reset Password',
-    text: `Please use this token to reset your password: ${token}`
-  };
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) return res.status(500).send('Error sending email');
-    res.status(200).send('Reset password token sent to email');
-  });
-};
-
 const logout = (req, res) => {
   return res.status(200).json({ message: 'Logged out successfully' });
 };
@@ -89,6 +60,5 @@ const logout = (req, res) => {
 export default {
   register,
   login,
-  forgotPassword,
   logout,
 }

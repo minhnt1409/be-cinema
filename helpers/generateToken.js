@@ -4,7 +4,7 @@ import { JWT_ACCESS_KEY, JWT_ACCESS_KEY_EXPIRE_TIME } from "./config-env.js";
 const generateAccessToken = (user) => {
   return jwt.sign(
     {
-      id: user._id,
+      id: user.user_id,
       role: user.role,
     },
     JWT_ACCESS_KEY,

@@ -19,6 +19,5 @@ const upload = multer({ storage: storage })
 router.post('/register', upload.array("images", 10), auth.register);
 router.post('/login', auth.login);
 router.post('/logout', authMiddleware.verifyToken, auth.logout);
-router.post('/forgot-password', authMiddleware.verifyToken, auth.forgotPassword);
 
 export default router;
